@@ -29,7 +29,11 @@ namespace Cw3.Controllers {
 
         [HttpPost]
         public IActionResult CreateStudent(Student student) {
+            if (_dbService.GetStudents().Any(fromStudents => fromStudents.Id == student.Id)) {
+                return Ok("Student z takim Id już istnieje");
+            }
             student.IndexNumber = $"s{new Random().Next(1, 20000)}";
+            //_dbService.GetStudents().Concat(new []{student});
             return Ok(student);
         }
 
