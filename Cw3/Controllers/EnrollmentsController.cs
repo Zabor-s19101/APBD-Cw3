@@ -10,7 +10,7 @@ namespace Cw3.Controllers {
     [Route("api/enrollments")]
     public class EnrollmentsController : ControllerBase {
         private const string ConString = "Data Source=db-mssql;Initial Catalog=s19101;Integrated Security=True";
-        
+
         [HttpPost]
         public IActionResult EnrollStudent(EnrollStudentRequest request) {
             EnrollStudentResponse response = null;
@@ -18,7 +18,7 @@ namespace Cw3.Controllers {
             using (var com = new SqlCommand()) {
                 com.Connection = con;
                 con.Open();
-                //var tran = con.BeginTransaction(); // nie działa korzystając z przykładu pseudokodu z ostatniego wykładu 5 (błąd na linii gdzie wykonuje pierwszy ExecuteReader)
+                com.Transaction = con.BeginTransaction();
                 try {
                     com.CommandText = "select Studies.IdStudy from dbo.Studies where Studies.Name = @study";
                     com.Parameters.AddWithValue("study", request.Studies);
@@ -27,7 +27,7 @@ namespace Cw3.Controllers {
                     if (dr.Read()) {
                         idStudy = int.Parse(dr["IdStudy"].ToString());
                     } else {
-                        //tran.Rollback();
+                        com.Transaction.Rollback();
                         return BadRequest("Studia nie istnieją");
                     }
                     dr.Close();
@@ -66,9 +66,9 @@ namespace Cw3.Controllers {
                     com.Parameters.AddWithValue("IdEnrollment", idEnrollment);
                     com.ExecuteNonQuery();
 
-                    //tran.Commit();
+                    com.Transaction.Commit();
                 } catch (SqlException e) {
-                    //tran.Rollback();
+                    com.Transaction.Rollback();
                     return BadRequest(e.Message);
                 }
             }
