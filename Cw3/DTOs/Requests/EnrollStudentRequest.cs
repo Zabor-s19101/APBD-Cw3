@@ -15,6 +15,7 @@ namespace Cw3.DTOs.Requests {
         [Required]
         public DateTime BirthDate { get; set; }
         [Required]
+        [MaxLength(100)]
         public string Studies { get; set; }
     }
 }
