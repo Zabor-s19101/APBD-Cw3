@@ -23,7 +23,7 @@ namespace Cw3.Controllers {
                 response = _service.EnrollStudent(request);
             } catch (SqlException e) {
                 return NotFound(e.Message);
-            } catch (Exception e) {
+            } catch (Exception) {
                 return BadRequest("Studia nie istnieją");
             }
             return Created(nameof(response), response);

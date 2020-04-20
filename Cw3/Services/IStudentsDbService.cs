@@ -7,5 +7,6 @@ namespace Cw3.Services {
     public interface IStudentsDbService {
         EnrollStudentResponse EnrollStudent(EnrollStudentRequest request);
         EnrollStudentResponse EnrollPromotions(EnrollPromotionsRequest request);
+        string CheckStudentIndex(string index);
     }
 }

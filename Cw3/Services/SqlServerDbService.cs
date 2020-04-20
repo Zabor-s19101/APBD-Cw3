@@ -91,5 +91,18 @@ namespace Cw3.Services {
             }
             return response;
         }
+
+        public string CheckStudentIndex(string index) {
+            using (var con = new SqlConnection(ConString))
+            using (var com = new SqlCommand()) {
+                com.Connection = con;
+                con.Open();
+                    
+                com.CommandText = "select 1 from dbo.Student where Student.IndexNumber = @index";
+                com.Parameters.AddWithValue("index", index);
+                var dr = com.ExecuteReader();
+                return !dr.Read() ? null : index;
+            }
+        }
     }
 }
