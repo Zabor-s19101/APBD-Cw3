@@ -1,0 +1,24 @@
+Request at: 20.04.2020 22:07:26
+Method: POST
+Path: /api/enrollments
+Query: 
+Body: {
+	"IndexNumber": "s1234",
+	"FirstName": "Andrzej",
+	"LastName": "Malewski",
+	"BirthDate": "1993-03-30",
+	"Studies": "Grafika dzienne"
+}
+
+Request at: 20.04.2020 22:08:17
+Method: POST
+Path: /api/students
+Query: 
+Body: 
+
+Request at: 20.04.2020 22:08:23
+Method: GET
+Path: /api/students
+Query: 
+Body: 
+
